@@ -13,14 +13,11 @@ node{
         echo "${params.git_branch}"
         echo "${params.suite_name}"
         echo "${params.global_conf}"
-        steps{
-            echo "Inside steps"
-            script{
-                echo "Inside script"
-                modules.execute = load "ExecuteCephCI.groovy"
-                echo "args $args".format(args)
-                modules.execute.exeuteCLI(args)
-            }
+        script{
+            echo "Inside script"
+            modules.execute = load "ExecuteCephCI.groovy"
+            echo "args $args".format(args)
+            modules.execute.exeuteCLI(args)
         }
     }
 }
