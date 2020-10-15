@@ -14,8 +14,8 @@ node{
         echo "${params.global_conf}"
         script{
             echo "Inside script"
-            echo "args $args".format(args)
             exeuteCLI(args)
+            echo "Scripts done"
         }
     }
 }
@@ -27,5 +27,6 @@ def exeuteCLI(args){
             if(args['rhs-ceph-repo']?.trim()){
                cli = cli + '--rhs-ceph-repo $rhs_ceph_repo'.format(args['rhs_ceph_repo'])
             }
+            echo cli
             sh cli
 }
