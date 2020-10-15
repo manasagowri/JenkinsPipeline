@@ -15,7 +15,7 @@ node{
         echo "${params.global_conf}"
         script{
             echo "Inside script"
-            modules.execute = load "ExecuteCephCI.groovy"
+            modules.execute = load "./ExecuteCephCI.groovy"
             echo "args $args".format(args)
             modules.execute.exeuteCLI(args)
         }
