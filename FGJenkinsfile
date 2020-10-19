@@ -14,7 +14,8 @@ node{
         echo "${params.global_conf}"
         script{
             echo "Inside script"
-            exeuteCLI(args)
+            //exeuteCLI(args)
+            library identifier: 'JenkinsPipeline@main', retriever: modernSCM([$class: 'GitSCMSource', credentialsId: '', remote: 'https://github.com/manasagowri/JenkinsPipeline', traits: [gitBranchDiscovery()]]) ExecuteCephCI(args)
             echo "Scripts done"
         }
     }
