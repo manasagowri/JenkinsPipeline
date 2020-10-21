@@ -11,7 +11,8 @@ properties([
     ])
 ])
 
-node{
+pipeline{
+  stages{
     stage('Trigger downstream job'){
         echo "inside downstream job"
         rhbuild = "${params.rhbuild}"
@@ -28,7 +29,8 @@ node{
         String[] job_arr;
         job_arr = downstream_job.split(',')[0];
         parallel{
-          //for( String job : job_arr ){
+          for( String job : job_arr ){
+              job: {
                stage('trigger'){
                    echo job_arr
                    steps{
@@ -42,7 +44,9 @@ node{
                                                  [$class: 'StringParameterValue', name: 'global_conf', value: global_conf] ]
                    }
                }
-           //}
+           }
+         }
         }
     }
+  }
 }
