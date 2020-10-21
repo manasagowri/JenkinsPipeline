@@ -40,6 +40,7 @@ node{
          echo buildJob.toString()
          buildJobs.put(job + count.toString(), buildJob)
       }
+      echo buildJobs.toString()
       parallel(buildJobs)
    }
 }
