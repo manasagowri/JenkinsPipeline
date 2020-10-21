@@ -27,10 +27,12 @@ node{
         echo "params fetched"
         String[] job_arr;
         job_arr = downstream_job.split(',');
-            for( String job : job_arr ){
-                echo job
+        parallel{
+           for( String job : job_arr ){
+               stage('trigger'){
                    echo job
-                   build job: job, parameters: [ [$class: 'StringParameterValue', name: 'rhbuild', value: rhbuild],
+                   steps{
+                      build job: job, parameters: [ [$class: 'StringParameterValue', name: 'rhbuild', value: rhbuild],
                                                  [$class: 'StringParameterValue', name: 'inventory', value: inventory],
                                                  [$class: 'StringParameterValue', name: 'rhs_ceph_repo', value: rhs_ceph_repo],
                                                  [$class: 'StringParameterValue', name: 'container_image', value: container_image],
@@ -38,6 +40,9 @@ node{
                                                  [$class: 'StringParameterValue', name: 'git_branch', value: git_branch],
                                                  [$class: 'StringParameterValue', name: 'suite_name', value: suite_name],
                                                  [$class: 'StringParameterValue', name: 'global_conf', value: global_conf] ]
+                   }
+               }
+           }
         }
     }
 }
