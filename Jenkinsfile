@@ -37,7 +37,7 @@ node{
          }
          echo "printing"
          echo job
-         echo buildJob
+         echo buildJob.toString()
          buildJobs.put(job + count.toString(), buildJob)
       }
       parallel(buildJobs)
