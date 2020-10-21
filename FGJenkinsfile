@@ -9,19 +9,14 @@ properties([
         string(defaultValue: '', description: 'Enter the suite name with path for which build needs to be triggered. For ex: sanity_install_prereq', name: 'suite_name', trim: true),
         string(defaultValue: '', description: 'Enter the conf file with path for the build. For ex: install_prereq_fullconfig', name: 'global_conf', trim: true)])])
 
-args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "${params.inventory}", 'rhs_ceph_repo' : "${params.rhs_ceph_repo}" , 'container_image' : "${params.container_image}" , 'github_repo_link' : "${params.github_repo_link}" , 'git_branch' : "${params.git_branch}" , 'suite_name' : "${params.suite_name}" , 'global_conf' : "${params.global_conf}"]
+args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "conf/inventory/${params.inventory}.yaml", 'rhs_ceph_repo' : "${params.rhs_ceph_repo}" , 'container_image' : "${params.container_image}" ,
+        'github_repo_link' : "${params.github_repo_link}" , 'git_branch' : "${params.git_branch}" , 'suite_name' : "suites/nautilus/ansible/${params.suite_name}.yaml" ,
+        'global_conf' : "conf/nautilus/ansible/${params.global_conf}.yaml"]
 
 node{
     stage('Execute groovy script'){
         echo "Execute groovy script with the following parameters:"
-        echo "${params.rhbuild}"
-        echo "${params.inventory}"
-        echo "${params.rhs_ceph_repo}"
-        echo "${params.container_image}"
-        echo "${params.github_repo_link}"
-        echo "${params.git_branch}"
-        echo "${params.suite_name}"
-        echo "${params.global_conf}"
+        echo args
         script{
             echo "Inside script"
             //exeuteCLI(args)

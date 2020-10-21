@@ -14,13 +14,13 @@ properties([
 node{
     stage('Trigger downstream job'){
         rhbuild = "${params.rhbuild}"
-        inventory = "conf/inventory/${params.inventory}.yaml"
+        inventory = "${params.inventory}"
         rhs_ceph_repo = "${params.rhs_ceph_repo}"
         container_image = "${params.container_image}"
         github_repo_link = "${params.github_repo_link}"
         git_branch = "${params.git_branch}"
-        suite_name = "suites/nautilus/ansible/sanity_ceph_ansible.yaml"
-        global_conf = "conf/nautilus/ansible/sanity-ceph-ansible.yaml"
+        suite_name = "sanity_ceph_ansible"
+        global_conf = "sanity-ceph-ansible"
         downstream_job = "${params.downstream_job}"
         String[] job_arr;
         job_arr = downstream_job.split(',');
