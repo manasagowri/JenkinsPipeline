@@ -11,7 +11,7 @@ properties([
     ])
 ])
 
-pipeline{
+node{
   stages{
     stage('Trigger downstream job'){
       steps{
