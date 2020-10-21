@@ -14,6 +14,7 @@ properties([
 pipeline{
   stages{
     stage('Trigger downstream job'){
+      steps{
         echo "inside downstream job"
         rhbuild = "${params.rhbuild}"
         inventory = "${params.inventory}"
@@ -47,6 +48,7 @@ pipeline{
            }
          }
         }
+      }
     }
   }
 }
