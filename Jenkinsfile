@@ -13,6 +13,7 @@ properties([
 
 node{
     stage('Trigger downstream job'){
+        parallel{
         echo "inside downstream job"
         rhbuild = "${params.rhbuild}"
         inventory = "${params.inventory}"
@@ -27,7 +28,6 @@ node{
         echo "params fetched"
         String[] job_arr;
         job_arr = downstream_job.split(',');
-        parallel{
            for( String job : job_arr ){
                stage('trigger'){
                    echo job
