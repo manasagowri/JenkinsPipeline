@@ -43,7 +43,7 @@ node{
          echo job
          def buildEcho = {
             node{
-               stage(count){
+               stage(count.toString()){
                   sleep count * 10
                }
             }
