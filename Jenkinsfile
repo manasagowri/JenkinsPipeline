@@ -37,8 +37,11 @@ node{
          }
          echo "printing"
          echo job
+         def buildEcho = {
+            sleep count * 10
+         }
          echo buildJob.toString()
-         buildJobs.put(job + count.toString(), buildJob)
+         buildJobs.put(job + count.toString(), buildEcho)
       }
       echo buildJobs.toString()
       parallel(buildJobs)
