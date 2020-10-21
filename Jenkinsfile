@@ -13,7 +13,6 @@ properties([
 
 node{
     stage('Trigger downstream job'){
-        parallel{
         echo "inside downstream job"
         rhbuild = "${params.rhbuild}"
         inventory = "${params.inventory}"
@@ -28,11 +27,12 @@ node{
         echo "params fetched"
         String[] job_arr;
         job_arr = downstream_job.split(',');
-           for( String job : job_arr ){
+        parallel{
+          //for( String job : job_arr ){
                stage('trigger'){
-                   echo job
+                   echo job_arr[0]
                    steps{
-                      build job: job, parameters: [ [$class: 'StringParameterValue', name: 'rhbuild', value: rhbuild],
+                      build job_arr[0]: job, parameters: [ [$class: 'StringParameterValue', name: 'rhbuild', value: rhbuild],
                                                  [$class: 'StringParameterValue', name: 'inventory', value: inventory],
                                                  [$class: 'StringParameterValue', name: 'rhs_ceph_repo', value: rhs_ceph_repo],
                                                  [$class: 'StringParameterValue', name: 'container_image', value: container_image],
@@ -42,7 +42,7 @@ node{
                                                  [$class: 'StringParameterValue', name: 'global_conf', value: global_conf] ]
                    }
                }
-           }
+           //}
         }
     }
 }
