@@ -26,13 +26,13 @@ node{
         echo downstream_job
         echo "params fetched"
         String[] job_arr;
-        job_arr = downstream_job.split(',');
+        job_arr = downstream_job.split(',')[0];
         parallel{
           //for( String job : job_arr ){
                stage('trigger'){
-                   echo job_arr[0]
+                   echo job_arr
                    steps{
-                      build job_arr[0]: job, parameters: [ [$class: 'StringParameterValue', name: 'rhbuild', value: rhbuild],
+                      build job: job_arr, parameters: [ [$class: 'StringParameterValue', name: 'rhbuild', value: rhbuild],
                                                  [$class: 'StringParameterValue', name: 'inventory', value: inventory],
                                                  [$class: 'StringParameterValue', name: 'rhs_ceph_repo', value: rhs_ceph_repo],
                                                  [$class: 'StringParameterValue', name: 'container_image', value: container_image],
