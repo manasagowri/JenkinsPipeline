@@ -35,11 +35,7 @@ node{
          def buildJob = {
              build job: job, parameters: [[$class: 'StringParameterValue', name: 'rhbuild', value: rhbuild], [$class: 'StringParameterValue', name: 'inventory', value: inventory], [$class: 'StringParameterValue', name: 'rhs_ceph_repo', value: rhs_ceph_repo], [$class: 'StringParameterValue', name: 'container_image', value: container_image], [$class: 'StringParameterValue', name: 'github_repo_link', value: github_repo_link], [$class: 'StringParameterValue', name: 'git_branch', value: git_branch], [$class: 'StringParameterValue', name: 'suite_name', value: suite_name], [$class: 'StringParameterValue', name: 'global_conf', value: global_conf] ]
          }
-         def buildEcho = {
-            echo "In Parallel "
-            echo count
-         }
-         buildJobs.put(job + count, buildEcho)
+         buildJobs.put(job + count.toString(), buildJob)
       }
       parallel(buildJobs)
    }
