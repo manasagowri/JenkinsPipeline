@@ -28,11 +28,8 @@ node{
         String[] job_arr;
         job_arr = downstream_job.split(',');
         echo job_arr
-        parallel{
             for( String job : job_arr ){
                 echo job
-                stage(job){
-                   steps{
                    echo job
                    build job: job, parameters: [ [$class: 'StringParameterValue', name: 'rhbuild', value: rhbuild],
                                                  [$class: 'StringParameterValue', name: 'inventory', value: inventory],
@@ -42,9 +39,6 @@ node{
                                                  [$class: 'StringParameterValue', name: 'git_branch', value: git_branch],
                                                  [$class: 'StringParameterValue', name: 'suite_name', value: suite_name],
                                                  [$class: 'StringParameterValue', name: 'global_conf', value: global_conf] ]
-                   }
-                }
-            }
         }
     }
 }
