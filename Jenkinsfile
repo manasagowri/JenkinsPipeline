@@ -26,7 +26,7 @@ node{
         echo "params fetched"
         String[] job_arr;
         job_arr = downstream_job.split(',');
-        
+        echo job_arr
         parallel{
             for( String job : job_arr ){
                 echo job
