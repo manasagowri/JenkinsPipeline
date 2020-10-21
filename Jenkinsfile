@@ -13,6 +13,7 @@ properties([
 
 node{
     stage('Trigger downstream job'){
+        echo "inside downstream job"
         rhbuild = "${params.rhbuild}"
         inventory = "${params.inventory}"
         rhs_ceph_repo = "${params.rhs_ceph_repo}"
@@ -22,6 +23,7 @@ node{
         suite_name = "sanity_ceph_ansible"
         global_conf = "sanity-ceph-ansible"
         downstream_job = "${params.downstream_job}"
+        echo "params fetched"
         String[] job_arr;
         job_arr = downstream_job.split(',');
         
