@@ -1,6 +1,16 @@
-properties([parameters([string(defaultValue: '', description: 'Enter the rhbuild name. For ex: 4.2-rhel-8', name: 'rhbuild', trim: true), string(defaultValue: '', description: 'Enter the inventory file with path. For ex: conf/inventory/rhel-8.2-server-x86_64.yaml. If left empty, the build will be triggered for latest versions of both RHEL-7 and RHEL-8', name: 'inventory', trim: true), string(defaultValue: '', description: 'Enter the repo details, if the build needs be triggered for any specific RHCS version.', name: 'rhs_ceph_repo', trim: true), string(defaultValue: '', description: 'Enter the container image URL if applicable. ', name: 'container_image', trim: true), string(defaultValue: 'red-hat-storage/cephci', description: 'Enter the github repo link for the build. Default will be red-hat-storage/cephci.', name: 'github_repo_link', trim: true), string(defaultValue: 'master', description: 'Enter the git branch to be used for the build. Default will be master.', name: 'git_branch', trim: true), string(defaultValue: '', description: 'Enter the suite name with path for which build needs to be triggered. For ex: suites/nautilus/ansible/sanity_install_prereq.yaml', name: 'suite_name', trim: true), string(defaultValue: '', description: 'Enter the conf file with path for the build. For ex: conf/nautilus/install_prereq_fullconfig.yaml', name: 'global_conf', trim: true)])])
+properties([
+    parameters([
+        string(defaultValue: '', description: 'Enter the rhbuild name. For ex: 4.2-rhel-8', name: 'rhbuild', trim: true),
+        string(defaultValue: '', description: 'Enter the inventory file with path. For ex: rhel-8.2-server-x86_64. If left empty, the build will be triggered for latest versions of both RHEL-7 and RHEL-8', name: 'inventory', trim: true),
+        string(defaultValue: '', description: 'Enter the repo details, if the build needs be triggered for any specific RHCS version.', name: 'rhs_ceph_repo', trim: true),
+        string(defaultValue: '', description: 'Enter the container image URL if applicable. ', name: 'container_image', trim: true),
+        string(defaultValue: 'red-hat-storage/cephci', description: 'Enter the github repo link for the build. Default will be red-hat-storage/cephci.', name: 'github_repo_link', trim: true),
+        string(defaultValue: 'master', description: 'Enter the git branch to be used for the build. Default will be master.', name: 'git_branch', trim: true),
+        string(defaultValue: '', description: 'Enter the suite name with path for which build needs to be triggered. For ex: sanity_install_prereq', name: 'suite_name', trim: true),
+        string(defaultValue: '', description: 'Enter the conf file with path for the build. For ex: install_prereq_fullconfig', name: 'global_conf', trim: true)])])
 
 args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "${params.inventory}", 'rhs_ceph_repo' : "${params.rhs_ceph_repo}" , 'container_image' : "${params.container_image}" , 'github_repo_link' : "${params.github_repo_link}" , 'git_branch' : "${params.git_branch}" , 'suite_name' : "${params.suite_name}" , 'global_conf' : "${params.global_conf}"]
+
 node{
     stage('Execute groovy script'){
         echo "Execute groovy script with the following parameters:"
@@ -25,14 +35,15 @@ node{
 def exeuteCLI(args){
    echo "Inside execute CLI"
    checkout([$class: 'GitSCM', branches: [[name: args['git_branch']]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/' + args['github_repo_link']]]])
-            echo "Check out complete"
-            def cli = 'python3 -m venv .;source ./bin/activate;pip install -r requirements.txt;ls -lt ;  python run.py --rhbuild ' + args['rhbuild'] + ' --global-conf ' + args['global_conf'] + ' --osp-cred ~/osp-cred-ci-2.yaml --inventory ' + args['inventory'] + ' --suite ' + args['suite_name'] + ' --log-level info --ignore-latest-container --insecure-registry '
-            echo "CLI defined"
-            echo cli
-            if(args['rhs-ceph-repo']?.trim()){
-               cli = cli + '--rhs-ceph-repo ' + args['rhs_ceph_repo']
-            }
-            echo "CLI modified"
-            echo cli
-            sh cli
+   echo "Check out complete"
+   def cli = 'python3 -m venv .;source ./bin/activate;pip install -r requirements.txt;ls -lt ;  python run.py --rhbuild ' + args['rhbuild'] + ' --global-conf ' + args['global_conf'] + ' --osp-cred ~/osp-cred-ci-2.yaml --inventory '
+              + args['inventory'] + ' --suite ' + args['suite_name'] + ' --log-level info --ignore-latest-container --insecure-registry '
+   echo "CLI defined"
+   echo cli
+   if(args['rhs-ceph-repo']?.trim()){
+        cli = cli + '--rhs-ceph-repo ' + args['rhs_ceph_repo']
+   }
+   echo "CLI modified"
+   echo cli
+   sh cli
 }
