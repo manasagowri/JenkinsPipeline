@@ -16,7 +16,7 @@ args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "conf/inventory/${params.
 node{
     stage('Execute groovy script'){
         echo "Execute groovy script with the following parameters:"
-        echo args
+        //echo args
         script{
             echo "Inside script"
             //exeuteCLI(args)
