@@ -23,6 +23,7 @@ node{
         suite_name = "sanity_ceph_ansible"
         global_conf = "sanity-ceph-ansible"
         downstream_job = "${params.downstream_job}"
+        echo downstream_job
         echo "params fetched"
         String[] job_arr;
         job_arr = downstream_job.split(',');
