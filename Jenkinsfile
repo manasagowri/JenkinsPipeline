@@ -12,7 +12,7 @@ properties([
 ])
 
 node{
-    parallel('Trigger downstream job'){
+    parallel{
         echo "inside downstream job"
         rhbuild = "${params.rhbuild}"
         inventory = "${params.inventory}"
