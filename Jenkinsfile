@@ -29,6 +29,7 @@ node{
         
         parallel{
             for( String job : job_arr ){
+                echo job
                 stage(job){
                    steps{
                    echo job
