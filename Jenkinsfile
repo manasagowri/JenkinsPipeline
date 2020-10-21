@@ -31,7 +31,6 @@ node{
       job_arr = downstream_job.split(',');
       count = 0
       for(String job : job_arr){
-         count = count + 1
          def buildJob = {
              node{
                 stage(job){
@@ -44,6 +43,7 @@ node{
          def buildEcho = {
             node{
                stage(count.toString()){
+                  count = count + 1
                   sleep count * 10
                }
             }
