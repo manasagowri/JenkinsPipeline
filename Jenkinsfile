@@ -7,7 +7,7 @@ properties([
         string(defaultValue: 'red-hat-storage/cephci', description: 'Enter the github repo link for the build. Default will be red-hat-storage/cephci.', name: 'github_repo_link', trim: true),
         string(defaultValue: 'master', description: 'Enter the git branch to be used for the build. Default will be master.', name: 'git_branch', trim: true),
         extendedChoice(defaultValue: '', description: '', descriptionPropertyValue: '', multiSelectDelimiter: ',', name: 'downstream_job', quoteValue: false,
-            saveJSONParameterToFile: false, type: 'PT_CHECKBOX', value: 'FG_Job,FG_Job', visibleItemCount: 3)
+            saveJSONParameterToFile: false, type: 'PT_CHECKBOX', value: 'FG_Job,FG_Job_2', visibleItemCount: 3)
     ])
 ])
 
