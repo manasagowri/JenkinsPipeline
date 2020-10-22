@@ -32,7 +32,8 @@ node{
       count = 0
       for(String job : job_arr){
          suite_name = suite_name + "_" + count.toString()
-         String stageName = "Stage " + job
+         String jobName = job
+         String stageName = "Stage " + jobName
          def buildJob = {
              node{
                 stage(count.toString()){
