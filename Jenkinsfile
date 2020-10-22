@@ -52,7 +52,7 @@ node{
          buildJobs.put(job + count.toString(), buildJob)
       }
       echo buildJobs.toString()
-      parallel(buildJobs)
+      parallel buildJobs
    }
 }
 
