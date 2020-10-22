@@ -32,13 +32,14 @@ node{
       count = 0
       for(String job : job_arr){
          suite_name = suite_name + "_" + count.toString()
+         String stageName = "Stage " + job
          def buildJob = {
              node{
                 stage(count.toString()){
                    count = count + 1
                    sleep count * 10
                 }
-                stage(job){
+                stage(stageName){
                    build quietPeriod: count*10, job: job, parameters: [[$class: 'StringParameterValue', name: 'rhbuild', value: rhbuild], [$class: 'StringParameterValue', name: 'inventory', value: inventory], [$class: 'StringParameterValue', name: 'rhs_ceph_repo', value: rhs_ceph_repo], [$class: 'StringParameterValue', name: 'container_image', value: container_image], [$class: 'StringParameterValue', name: 'github_repo_link', value: github_repo_link], [$class: 'StringParameterValue', name: 'git_branch', value: git_branch], [$class: 'StringParameterValue', name: 'suite_name', value: suite_name], [$class: 'StringParameterValue', name: 'global_conf', value: global_conf]]
                 }
              }
