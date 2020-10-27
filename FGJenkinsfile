@@ -18,12 +18,11 @@ args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "conf/inventory/${params.
 
 node{
     dir('ceph'){
-      def fileList = []
       checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/red-hat-storage/cephci.git']]])
       def suite_dir = new File("cephci/suites/luminous/ansible")
       echo "I got executed"
-      dir.eachFileRecurse (FileType.FILES) { file ->
-         fileList << file
+      dir.eachFileRecurse (FileType.FILES) {
+         echo it
       }
     }
 
