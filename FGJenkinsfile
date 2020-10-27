@@ -17,8 +17,6 @@ args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "conf/inventory/${params.
         'global_conf' : "conf/nautilus/ansible/${params.global_conf}.yaml"]
 
 node{
-    import groovy.io.FileType
-
     def fileList = []
 
     dir('ceph'){
