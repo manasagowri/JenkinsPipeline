@@ -1,16 +1,5 @@
 import groovy.io.FileType
 
-def fileList = []
-
-dir('ceph'){
-   checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/red-hat-storage/cephci.git']]])
-   def suite_dir = new File("cephci/suites/luminous/ansible")
-   echo "I got executed"
-   dir.eachFileRecurse (FileType.FILES) { file ->
-      fileList << file
-   }
-}
-
 properties([
     parameters([
         string(defaultValue: '', description: 'Enter the rhbuild name. For ex: 4.2-rhel-8', name: 'rhbuild', trim: true),
@@ -28,6 +17,19 @@ args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "conf/inventory/${params.
         'global_conf' : "conf/nautilus/ansible/${params.global_conf}.yaml"]
 
 node{
+    import groovy.io.FileType
+
+    def fileList = []
+
+    dir('ceph'){
+      checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/red-hat-storage/cephci.git']]])
+      def suite_dir = new File("cephci/suites/luminous/ansible")
+      echo "I got executed"
+      dir.eachFileRecurse (FileType.FILES) { file ->
+         fileList << file
+      }
+    }
+
     stage('Execute groovy script'){
         echo "Execute groovy script with the following parameters:"
         //echo args
