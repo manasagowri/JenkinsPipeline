@@ -17,6 +17,8 @@ properties([
          fileList << file
       }
 ''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 3)
+   ])
+])
 
 
 args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "conf/inventory/${params.inventory}.yaml", 'rhs_ceph_repo' : "${params.rhs_ceph_repo}" , 'container_image' : "${params.container_image}" ,
