@@ -12,7 +12,8 @@ properties([
         def pars = [A,S,D,F,G]
         for (item in pars){
            names.add(item)
-        }''', multiSelectDelimiter: ',', name: '', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 5)
+        }
+        return names''', multiSelectDelimiter: ',', name: '', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 5)
    ])
 ])
 
