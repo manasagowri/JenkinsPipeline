@@ -11,12 +11,12 @@ properties([
         extendedChoice(bindings: '', defaultValue: '', description: '', descriptionPropertyValue: '', groovyClasspath: '', groovyScript: '''import groovy.io.FileType
         dir('ceph'){ 
      def fileList = []
-      checkout([$class: \'GitSCM\', branches: [[name: \'*/main\']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: \'https://github.com/red-hat-storage/cephci.git\']]])
-      def suite_dir = new File("cephci/suites/luminous/ansible")
-      echo "I got executed"
-      dir.eachFileRecurse (FileType.FILES) { file ->
-         fileList << file
-      }
+     // checkout([$class: \'GitSCM\', branches: [[name: \'*/main\']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: \'https://github.com/red-hat-storage/cephci.git\']]])
+     // def suite_dir = new File("cephci/suites/luminous/ansible")
+     // echo "I got executed"
+     // dir.eachFileRecurse (FileType.FILES) { file ->
+     //    fileList << file
+     // }
       fileList = [As, DF, SD, SC, ASD]
       }
 ''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 3)
