@@ -6,7 +6,6 @@ properties([
         string(defaultValue: '', description: 'Enter the container image URL if applicable. ', name: 'container_image', trim: true),
         string(defaultValue: 'red-hat-storage/cephci', description: 'Enter the github repo link for the build. Default will be red-hat-storage/cephci.', name: 'github_repo_link', trim: true),
         string(defaultValue: 'master', description: 'Enter the git branch to be used for the build. Default will be master.', name: 'git_branch', trim: true),
-        string(defaultValue: '', description: 'Enter the suite name with path for which build needs to be triggered. For ex: sanity_install_prereq', name: 'suite_name', trim: true),
         string(defaultValue: '', description: 'Enter the conf file with path for the build. For ex: install_prereq_fullconfig', name: 'global_conf', trim: true),
         extendedChoice(bindings: '', defaultValue: 'a', description: '', descriptionPropertyValue: '', groovyClasspath: '', groovyScript: '''def pars = [\'A\',\'S\',\'D\',\'F\',\'G\',\'H\']
            List<String> artifacts = new ArrayList<String>()
@@ -16,20 +15,6 @@ properties([
         return artifacts''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 3)
    ])
 ])
-
-
-// extendedChoice(bindings: '', defaultValue: 'all', description: '', descriptionPropertyValue: '', groovyClasspath: '', groovyScript: '''import groovy.io.FileType
-     //def fileList = []
-     // checkout([$class: \'GitSCM\', branches: [[name: \'*/main\']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: \'https://github.com/red-hat-storage/cephci.git\']]])
-     // def suite_dir = new File("cephci/suites/luminous/ansible")
-     // echo "I got executed"
-     // dir.eachFileRecurse (FileType.FILES) { file ->
-     //    fileList << file
-     // }
-      //fileList = [As, DF, SD, SC, ASD]
-      //return fileList
-//''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 3)
-
 
 
 args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "conf/inventory/${params.inventory}.yaml", 'rhs_ceph_repo' : "${params.rhs_ceph_repo}" , 'container_image' : "${params.container_image}" ,
