@@ -13,7 +13,7 @@ properties([
         for (item in pars){
            names.add(item)
         }
-        return names''', multiSelectDelimiter: ',', name: '', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 5)
+        return names''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 5)
    ])
 ])
 
