@@ -33,7 +33,7 @@ properties([
 
 
 args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "conf/inventory/${params.inventory}.yaml", 'rhs_ceph_repo' : "${params.rhs_ceph_repo}" , 'container_image' : "${params.container_image}" ,
-        'github_repo_link' : "${params.github_repo_link}" , 'git_branch' : "${params.git_branch}" , 'suite_name' : "suites/nautilus/ansible/${params.suite_name}.yaml" ,
+        'github_repo_link' : "${params.github_repo_link}" , 'git_branch' : "${params.git_branch}" , 'suite_name' : "suites/nautilus/ansible/sanity_ceph_ansible.yaml" ,
         'global_conf' : "conf/nautilus/ansible/${params.global_conf}.yaml"]
 
 node{
