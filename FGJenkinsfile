@@ -9,7 +9,11 @@ properties([
         string(defaultValue: '', description: 'Enter the suite name with path for which build needs to be triggered. For ex: sanity_install_prereq', name: 'suite_name', trim: true),
         string(defaultValue: '', description: 'Enter the conf file with path for the build. For ex: install_prereq_fullconfig', name: 'global_conf', trim: true),
         extendedChoice(bindings: '', defaultValue: 'a', description: '', descriptionPropertyValue: '', groovyClasspath: '', groovyScript: '''def pars = [A,S,D,F,G,H]
-        return pars''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_MULTI_SELECT', visibleItemCount: 3)
+           List<String> artifacts = new ArrayList<String>()
+           for(item in pars){
+              artifacts.add(item)
+           }
+        return artifacts''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_MULTI_SELECT', visibleItemCount: 3)
    ])
 ])
 
