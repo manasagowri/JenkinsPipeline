@@ -17,6 +17,7 @@ properties([
       dir.eachFileRecurse (FileType.FILES) { file ->
          fileList << file
       }
+      fileList = [As, DF, SD, SC, ASD]
       }
 ''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 3)
    ])
