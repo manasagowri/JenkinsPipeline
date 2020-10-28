@@ -9,7 +9,6 @@ properties([
         string(defaultValue: '', description: 'Enter the suite name with path for which build needs to be triggered. For ex: sanity_install_prereq', name: 'suite_name', trim: true),
         string(defaultValue: '', description: 'Enter the conf file with path for the build. For ex: install_prereq_fullconfig', name: 'global_conf', trim: true),
         extendedChoice(bindings: '', defaultValue: 'all', description: '', descriptionPropertyValue: '', groovyClasspath: '', groovyScript: '''import groovy.io.FileType
-        try{
         dir('ceph'){ 
      def fileList = []
      // checkout([$class: \'GitSCM\', branches: [[name: \'*/main\']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: \'https://github.com/red-hat-storage/cephci.git\']]])
@@ -19,11 +18,7 @@ properties([
      //    fileList << file
      // }
       fileList = [As, DF, SD, SC, ASD]
-      }
       return fileList
-      } catch(Exception e){
-         echo "Exception while fetching params"
-      }
 ''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 3)
    ])
 ])
