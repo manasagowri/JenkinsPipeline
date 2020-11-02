@@ -35,10 +35,7 @@ node{
           def baseDir = new File(pwd());
           echo 'base dir completed'
           def list = []
-          baseDir.traverse(type: FileType.FILES, maxDepth: 0) { list.add(it) };
-          //baseDir.eachFileRecurse (FileType.FILES) { file ->
-          //   list << file
-          //}
+          list = baseDir.listFiles()
           list.each {
              println it.path
           }
