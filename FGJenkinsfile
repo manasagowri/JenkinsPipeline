@@ -19,33 +19,12 @@ properties([
 
 
 args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "conf/inventory/${params.inventory}.yaml", 'rhs_ceph_repo' : "${params.rhs_ceph_repo}" , 'container_image' : "${params.container_image}" ,
-        'github_repo_link' : "${params.github_repo_link}" , 'git_branch' : "${params.git_branch}" , 'suite_name' : "suites/nautilus/ansible/sanity_ceph_ansible.yaml" ,
+        'github_repo_link' : "${params.github_repo_link}" , 'git_branch' : "${params.git_branch}" , 'suite_name' : ${params.suite_name} ,
         'global_conf' : "conf/nautilus/ansible/${params.global_conf}.yaml"]
 
 import groovy.io.FileType
 
 node{
-    stage('Checking file fetch'){
-       dir('cirepo'){
-          echo 'inside cirepo directory'
-          echo pwd()
-          checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'cephci']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/red-hat-storage/cephci.git']]])
-          echo 'checkout complete'
-          def folder = pwd() + "/suites/luminous/ansible";
-          echo folder
-          def baseDir = new File(folder);
-          echo 'base dir completed'
-          def list = []
-          list = baseDir.listFiles()
-          def suite_names = []
-          list.each {
-             println it.name
-             suite_names.add(it.name)
-          }
-          echo 'files fetched'
-          echo suite_names.toString()
-       }
-    }
     stage('Execute groovy script'){
         echo "Execute groovy script with the following parameters:"
         //echo args
