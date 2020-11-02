@@ -32,7 +32,7 @@ node{
           echo 'checkout complete'
           def folder = pwd() + "/suites/luminous/ansible/";
           echo folder
-          def baseDir = new File(pwd());
+          def baseDir = new File(pwd() + "/cephci");
           echo 'base dir completed'
           def list = []
           list = baseDir.listFiles()
