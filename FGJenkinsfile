@@ -39,6 +39,8 @@ node{
         //echo args
         def myvar = suite_defs.keySet()
         echo myvar.toString()
+        File suite_files = new File("suite_defs")
+        echo suite_files.text
         script{
             echo "Inside script"
             //exeuteCLI(args)
