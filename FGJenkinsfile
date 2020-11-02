@@ -28,7 +28,7 @@ node{
        dir('cirepo'){
           echo 'inside cirepo directory'
           echo pwd()
-          checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/red-hat-storage/cephci.git']]])
+          checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'cirepo']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/red-hat-storage/cephci.git']]])
           echo 'checkout complete'
           def folder = pwd() + "/cephci/suites/luminous/ansible/";
           echo folder
