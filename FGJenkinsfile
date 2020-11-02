@@ -31,6 +31,7 @@ properties([
         [$class: 'ChoiceParameter', choiceType: 'PT_CHECKBOX', description: '', filterLength: 1, filterable: false, name: 'suite_choice', randomName: 'choice-parameter-22191051698909', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: '''
         return ['default1', 'default2']'''], script: [classpath: [], sandbox: true, script: '''
            //checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/manasagowri/JenkinsPipeline.git']]])
+          import groovy.io.FileType
            def baseDir = new File(pwd());
           //echo 'base dir completed'
           def list = []
@@ -56,7 +57,6 @@ args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "conf/inventory/${params.
         'global_conf' : "conf/nautilus/ansible/${params.global_conf}.yaml"]
 
 import groovy.io.FileType
-
 node{
     stage('Execute groovy script'){
         echo "Execute groovy script with the following parameters:"
