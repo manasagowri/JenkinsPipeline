@@ -45,8 +45,8 @@ properties([
            //for(item in pars){
            //   artifacts.add(item)
            //}
-           ("git clone https://github.com/manasagowri/JenkinsPipeline.git").execute()
-        return ['actual1', 'actual2']''']]]
+         ["git", "clone", "https://github.com/manasagowri/JenkinsPipeline.git",  "/"].execute()
+         return ['actual1', 'actual2']''']]]
    ])
 ])
 
