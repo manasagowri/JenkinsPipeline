@@ -30,7 +30,7 @@ properties([
         return artifacts''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 3),
         [$class: 'ChoiceParameter', choiceType: 'PT_CHECKBOX', description: '', filterLength: 1, filterable: false, name: 'suite_choice', randomName: 'choice-parameter-22191051698909', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: '''
         return ['default1', 'default2']'''], script: [classpath: [], sandbox: true, script: '''
-           checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/manasagowri/JenkinsPipeline.git']]])
+           //checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/manasagowri/JenkinsPipeline.git']]])
            //def baseDir = new File(pwd());
           //echo 'base dir completed'
           //def list = []
