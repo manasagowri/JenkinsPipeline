@@ -30,7 +30,7 @@ node{
           echo pwd()
           checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/red-hat-storage/cephci.git']]])
           echo 'checkout complete'
-          def folder = "./cephci/suites/luminous/ansible/";
+          def folder = "cephci/suites/luminous/ansible/";
           echo folder
           def baseDir = new File(folder);
           echo 'base dir completed'
