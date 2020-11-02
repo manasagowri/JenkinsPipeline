@@ -37,6 +37,8 @@ node{
     stage('Execute groovy script'){
         echo "Execute groovy script with the following parameters:"
         //echo args
+        def myvar = suite_defs.keySet()
+        echo myvar.toString()
         script{
             echo "Inside script"
             //exeuteCLI(args)
