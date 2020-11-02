@@ -36,10 +36,13 @@ node{
           echo 'base dir completed'
           def list = []
           list = baseDir.listFiles()
+          def suite_names = []
           list.each {
              println it.name
+             suite_names.add(it.name)
           }
           echo 'files fetched'
+          echo suite_names.toString()
        }
     }
     stage('Execute groovy script'){
