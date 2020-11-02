@@ -50,11 +50,11 @@ properties([
              println it.name
              names.add(it.name)
           }
-           def pars = suite_defs.keySet()
-           List<String> artifacts = new ArrayList<String>()
-           for(item in pars){
-              artifacts.add(item)
-           }
+           //def pars = suite_defs.keySet()
+           //List<String> artifacts = new ArrayList<String>()
+           //for(item in pars){
+           //   artifacts.add(item)
+           //}
         return names''']]]
    ])
 ])
