@@ -24,17 +24,21 @@ args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "conf/inventory/${params.
 node{
     stage('Checking file fetch'){
        dir('cirepo'){
+          import groovy.io.FileType
           echo 'inside cirepo directory'
           echo pwd()
           checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/red-hat-storage/cephci.git']]])
           echo 'checkout complete'
-          def folder = "./cephci/suites/luminous/ansible";
+          def folder = "./cephci/suites/luminous/ansible/";
           echo folder
           def baseDir = new File(folder);
           echo 'base dir completed'
-          files = baseDir.listFiles();
+          def list = []
+          dir.eachFileRecurse (FileType.FILES) { file ->
+             list << file
+             echo file.path
+          }
           echo 'files fetched'
-          echo files.toString()
        }
     }
     stage('Execute groovy script'){
