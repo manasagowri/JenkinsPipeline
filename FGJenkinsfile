@@ -1,9 +1,3 @@
-suite_defs = [
-   'sanity_ceph_ansible' : ['suite_path' : 'suites/nautilus/ansible/sanity_ceph_ansible.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml'],
-   'sanity_ceph_ansible_small' : ['suite_path' : 'suites/nautilus/ansible/sanity_ceph_ansible_small.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible-small.yaml'],
-   'sanity_containerized_ceph_ansible' : ['suite_path' : 'suites/nautilus/ansible/sanity_containerized_ceph_ansible.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml'],
-   'switch_rpm_to_container' : ['suite_path' : 'suites/nautilus/ansible/switch_rpm_to_container.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml']
-]
 
 properties([
     parameters([
@@ -16,6 +10,12 @@ properties([
         string(defaultValue: '', description: 'Enter the conf file with path for the build. For ex: install_prereq_fullconfig', name: 'global_conf', trim: true),
         extendedChoice(bindings: '', defaultValue: 'a', description: '', descriptionPropertyValue: '', groovyClasspath: '', groovyScript: '''
            //def pars = ['sanity_ceph_ansible.yaml', 'sanity_ceph_ansible_small.yaml', 'sanity_containerized_ceph_ansible.yaml', 'switch_rpm_to_container.yaml']
+           suite_defs = [
+   'sanity_ceph_ansible' : ['suite_path' : 'suites/nautilus/ansible/sanity_ceph_ansible.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml'],
+   'sanity_ceph_ansible_small' : ['suite_path' : 'suites/nautilus/ansible/sanity_ceph_ansible_small.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible-small.yaml'],
+   'sanity_containerized_ceph_ansible' : ['suite_path' : 'suites/nautilus/ansible/sanity_containerized_ceph_ansible.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml'],
+   'switch_rpm_to_container' : ['suite_path' : 'suites/nautilus/ansible/switch_rpm_to_container.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml']
+           ]
            def pars = suite_defs.keySet()
            List<String> artifacts = new ArrayList<String>()
            for(item in pars){
