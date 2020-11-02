@@ -25,7 +25,7 @@ import groovy.io.FileType
 
 node{
     stage('Checking file fetch'){
-       dir('cephci'){
+       dir('cirepo'){
           echo 'inside cirepo directory'
           echo pwd()
           checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'cephci']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/red-hat-storage/cephci.git']]])
