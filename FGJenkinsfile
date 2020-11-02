@@ -37,7 +37,9 @@ node{
           def list = []
           baseDir.eachFileRecurse (FileType.FILES) { file ->
              list << file
-             echo file.path
+          }
+          list.each {
+             println it.path
           }
           echo 'files fetched'
        }
