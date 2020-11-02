@@ -37,7 +37,7 @@ node{
           def list = []
           list = baseDir.listFiles()
           list.each {
-             println it.path
+             println it.name
           }
           echo 'files fetched'
        }
