@@ -7,12 +7,28 @@ properties([
         string(defaultValue: 'red-hat-storage/cephci', description: 'Enter the github repo link for the build. Default will be red-hat-storage/cephci.', name: 'github_repo_link', trim: true),
         string(defaultValue: 'master', description: 'Enter the git branch to be used for the build. Default will be master.', name: 'git_branch', trim: true),
         string(defaultValue: '', description: 'Enter the conf file with path for the build. For ex: install_prereq_fullconfig', name: 'global_conf', trim: true),
-        extendedChoice(bindings: '', defaultValue: 'a', description: '', descriptionPropertyValue: '', groovyClasspath: '', groovyScript: '''
-           def pars = ['sanity_ceph_ansible.yaml', 'sanity_ceph_ansible_small.yaml', 'sanity_containerized_ceph_ansible.yaml', 'switch_rpm_to_container.yaml']
+        extendedChoice(bindings: '', defaultValue: 'a', description: '', descriptionPropertyValue: '', groovyClasspath: '', groovyScript: '''def pars = [\'A\',\'S\',\'D\',\'F\',\'G\',\'H\']
            List<String> artifacts = new ArrayList<String>()
-           for(item in pars){
-              artifacts.add(item)
-           }
+           dir('cirepo'){
+            echo 'inside cirepo directory'
+            echo pwd()
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'cephci']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/red-hat-storage/cephci.git']]])
+            echo 'checkout complete'
+            def folder = pwd() + "/suites/luminous/ansible";
+            echo folder
+            def baseDir = new File(folder);
+            echo 'base dir completed'
+            def list = []
+            list = baseDir.listFiles()
+            def suite_names = []
+            list.each {
+               println it.name
+               suite_names.add(it.name)
+               artifacts.add(it.name)
+            }
+            echo 'files fetched'
+            echo suite_names.toString()
+          }
         return artifacts''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 3)
    ])
 ])
