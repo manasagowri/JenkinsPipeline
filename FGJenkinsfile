@@ -16,7 +16,7 @@ properties([
         string(defaultValue: '', description: 'Enter the conf file with path for the build. For ex: install_prereq_fullconfig', name: 'global_conf', trim: true),
         extendedChoice(bindings: '', defaultValue: 'a', description: '', descriptionPropertyValue: '', groovyClasspath: '', groovyScript: '''
            //def pars = ['sanity_ceph_ansible.yaml', 'sanity_ceph_ansible_small.yaml', 'sanity_containerized_ceph_ansible.yaml', 'switch_rpm_to_container.yaml']
-           def pars = suite_defs.keySet() as String[]
+           def pars = suite_defs.keySet()
            List<String> artifacts = new ArrayList<String>()
            for(item in pars){
               artifacts.add(item)
