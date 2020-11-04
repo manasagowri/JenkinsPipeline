@@ -30,28 +30,19 @@ properties([
         return artifacts''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 3),
         [$class: 'ChoiceParameter', choiceType: 'PT_CHECKBOX', description: '', filterLength: 1, filterable: false, name: 'suite_choice', randomName: 'choice-parameter-22191051698909', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: '''
         return ['default1', 'default2']'''], script: [classpath: [], sandbox: true, script: '''
-         //checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/manasagowri/JenkinsPipeline.git']]])
-          //import groovy.io.FileType
-           //def baseDir = new File(pwd());
-          //echo 'base dir completed'
-          //def list = []
-          //List<String> names = new ArrayList<String>()
-          //list = baseDir.listFiles()
-          //list.each {
-          //   println it.name
-          //   names.add(it.name)
-          //}
-           //def pars = suite_defs.keySet()
-           //List<String> artifacts = new ArrayList<String>()
-           //for(item in pars){
-           //   artifacts.add(item)
-           //}
-         //def git_ch = "git clone https://github.com/red-hat-storage/cephci.git".execute()
-         import groovy.io.FileType
-         File file = new File("https://github.com/manasagowri/JenkinsPipeline/blob/main/suite_defs")
-         sh 'ls'
-         sleep 100
-         return ['actual1', 'actual2']''']]]
+        suite_defs = [
+   'sanity_ceph_ansible' : ['suite_path' : 'suites/nautilus/ansible/sanity_ceph_ansible.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml'],
+   'sanity_ceph_ansible_small' : ['suite_path' : 'suites/nautilus/ansible/sanity_ceph_ansible_small.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible-small.yaml'],
+   'sanity_containerized_ceph_ansible' : ['suite_path' : 'suites/nautilus/ansible/sanity_containerized_ceph_ansible.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml'],
+   'switch_rpm_to_container' : ['suite_path' : 'suites/nautilus/ansible/switch_rpm_to_container.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml']
+           ]
+           def pars = suite_defs.keySet()
+           List<String> artifacts = new ArrayList<String>()
+           for(item in pars){
+              artifacts.add(item)
+           }
+        return artifacts 
+        return ['actual1', 'actual2']''']]]
    ])
 ])
 
