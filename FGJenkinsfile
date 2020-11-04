@@ -49,8 +49,9 @@ properties([
          //def git_ch = "git clone https://github.com/red-hat-storage/cephci.git".execute()
          import groovy.io.FileType
          File file = new File("https://github.com/manasagowri/JenkinsPipeline/blob/main/suite_defs") 
+         def text = file.text
          sleep 100
-         return ['actual1', 'actual2']''']]]
+         return ['actual1', 'actual2', text]''']]]
    ])
 ])
 
