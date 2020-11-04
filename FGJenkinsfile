@@ -30,6 +30,23 @@ properties([
         return artifacts''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 3),
         [$class: 'ChoiceParameter', choiceType: 'PT_CHECKBOX', description: '', filterLength: 1, filterable: false, name: 'suite_choice', randomName: 'choice-parameter-22191051698909', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: '''
         return ['default1', 'default2']'''], script: [classpath: [], sandbox: true, script: '''
+         //checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/manasagowri/JenkinsPipeline.git']]])
+          //import groovy.io.FileType
+           //def baseDir = new File(pwd());
+          //echo 'base dir completed'
+          //def list = []
+          //List<String> names = new ArrayList<String>()
+          //list = baseDir.listFiles()
+          //list.each {
+          //   println it.name
+          //   names.add(it.name)
+          //}
+           //def pars = suite_defs.keySet()
+           //List<String> artifacts = new ArrayList<String>()
+           //for(item in pars){
+           //   artifacts.add(item)
+           //}
+         //def git_ch = "git clone https://github.com/red-hat-storage/cephci.git".execute()
          sleep 100
          return ['actual1', 'actual2']''']]]
    ])
