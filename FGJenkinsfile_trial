@@ -1,0 +1,106 @@
+suite_defs = [
+   'sanity_ceph_ansible' : ['suite_path' : 'suites/nautilus/ansible/sanity_ceph_ansible.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml'],
+   'sanity_ceph_ansible_small' : ['suite_path' : 'suites/nautilus/ansible/sanity_ceph_ansible_small.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible-small.yaml'],
+   'sanity_containerized_ceph_ansible' : ['suite_path' : 'suites/nautilus/ansible/sanity_containerized_ceph_ansible.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml'],
+   'switch_rpm_to_container' : ['suite_path' : 'suites/nautilus/ansible/switch_rpm_to_container.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml']
+]
+
+properties([
+    parameters([
+        string(defaultValue: '', description: 'Enter the rhbuild name. For ex: 4.2-rhel-8', name: 'rhbuild', trim: true),
+        string(defaultValue: '', description: 'Enter the inventory file with path. For ex: rhel-8.2-server-x86_64. If left empty, the build will be triggered for latest versions of both RHEL-7 and RHEL-8', name: 'inventory', trim: true),
+        string(defaultValue: '', description: 'Enter the repo details, if the build needs be triggered for any specific RHCS version.', name: 'rhs_ceph_repo', trim: true),
+        string(defaultValue: '', description: 'Enter the container image URL if applicable. ', name: 'container_image', trim: true),
+        string(defaultValue: 'red-hat-storage/cephci', description: 'Enter the github repo link for the build. Default will be red-hat-storage/cephci.', name: 'github_repo_link', trim: true),
+        string(defaultValue: 'master', description: 'Enter the git branch to be used for the build. Default will be master.', name: 'git_branch', trim: true),
+        string(defaultValue: '', description: 'Enter the conf file with path for the build. For ex: install_prereq_fullconfig', name: 'global_conf', trim: true),
+        extendedChoice(bindings: '', defaultValue: 'a', description: '', descriptionPropertyValue: '', groovyClasspath: '', groovyScript: '''
+           //def pars = ['sanity_ceph_ansible.yaml', 'sanity_ceph_ansible_small.yaml', 'sanity_containerized_ceph_ansible.yaml', 'switch_rpm_to_container.yaml']
+           suite_defs = [
+   'sanity_ceph_ansible' : ['suite_path' : 'suites/nautilus/ansible/sanity_ceph_ansible.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml'],
+   'sanity_ceph_ansible_small' : ['suite_path' : 'suites/nautilus/ansible/sanity_ceph_ansible_small.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible-small.yaml'],
+   'sanity_containerized_ceph_ansible' : ['suite_path' : 'suites/nautilus/ansible/sanity_containerized_ceph_ansible.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml'],
+   'switch_rpm_to_container' : ['suite_path' : 'suites/nautilus/ansible/switch_rpm_to_container.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml']
+           ]
+           def pars = suite_defs.keySet()
+           List<String> artifacts = new ArrayList<String>()
+           for(item in pars){
+              artifacts.add(item)
+           }
+        return artifacts''', multiSelectDelimiter: ',', name: 'suite_name', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_CHECKBOX', visibleItemCount: 3),
+        [$class: 'ChoiceParameter', choiceType: 'PT_CHECKBOX', description: '', filterLength: 1, filterable: false, name: 'suite_choice', randomName: 'choice-parameter-22191051698909', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: true, script: '''
+        return ['default1', 'default2']'''], script: [classpath: [], sandbox: true, script: '''
+         //checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/manasagowri/JenkinsPipeline.git']]])
+          //import groovy.io.FileType
+           //def baseDir = new File(pwd());
+          //echo 'base dir completed'
+          //def list = []
+          //List<String> names = new ArrayList<String>()
+          //list = baseDir.listFiles()
+          //list.each {
+          //   println it.name
+          //   names.add(it.name)
+          //}
+           //def pars = suite_defs.keySet()
+           //List<String> artifacts = new ArrayList<String>()
+           //for(item in pars){
+           //   artifacts.add(item)
+           //}
+         def git_ch = "git clone https://github.com/red-hat-storage/cephci.git"
+         def proc = git_ch.execute()
+         proc.waitFor()
+         //import groovy.io.FileType
+         //File file = new File("https://github.com/manasagowri/JenkinsPipeline/blob/main/suite_defs")
+         //sh 'ls'
+         sleep 100
+         return ['actual1', 'actual2']''']]]
+   ])
+])
+
+//save corresponding confs and suites as a global variable. While looping through the selected suites, select the corresponding conf name as well
+
+args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "conf/inventory/${params.inventory}.yaml", 'rhs_ceph_repo' : "${params.rhs_ceph_repo}" , 'container_image' : "${params.container_image}" ,
+        'github_repo_link' : "${params.github_repo_link}" , 'git_branch' : "${params.git_branch}" , 'suite_name' : params.suite_name ,
+        'global_conf' : "conf/nautilus/ansible/${params.global_conf}.yaml"]
+
+import groovy.io.FileType
+node{
+    stage('Execute groovy script'){
+        echo "Execute groovy script with the following parameters:"
+        //echo args
+        def myvar = suite_defs.keySet()
+        echo myvar.toString()
+        def baseDir = new File(pwd());
+          echo 'base dir completed'
+          def list = []
+          list = baseDir.listFiles()
+          list.each {
+             println it.name
+          }
+        File suite_files = new File("suite_defs")
+        echo suite_files.text
+        script{
+            echo "Inside script"
+            //exeuteCLI(args)
+            library identifier: 'JenkinsPipeline@main', retriever: modernSCM([$class: 'GitSCMSource', credentialsId: '', remote: 'https://github.com/manasagowri/JenkinsPipeline', traits: [gitBranchDiscovery()]])
+            ExecuteCephCI(args)
+            echo "Scripts done"
+        }
+    }
+}
+
+def exeuteCLI(args){
+   echo "Inside execute CLI"
+   checkout([$class: 'GitSCM', branches: [[name: args['git_branch']]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/' + args['github_repo_link']]]])
+   echo "Check out complete"
+   def cli = 'python3 -m venv .;source ./bin/activate;pip install -r requirements.txt;ls -lt ;  python run.py --rhbuild ' + args['rhbuild'] + ' --global-conf ' + args['global_conf'] + ' --osp-cred ~/osp-cred-ci-2.yaml --inventory '
+              + args['inventory'] + ' --suite ' + args['suite_name'] + ' --log-level info --ignore-latest-container --insecure-registry '
+   echo "CLI defined"
+   echo cli
+   if(args['rhs-ceph-repo']?.trim()){
+        cli = cli + '--rhs-ceph-repo ' + args['rhs_ceph_repo']
+   }
+   echo "CLI modified"
+   echo cli
+   sh cli
+}
