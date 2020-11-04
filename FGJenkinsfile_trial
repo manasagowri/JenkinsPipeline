@@ -46,12 +46,26 @@ properties([
            //for(item in pars){
            //   artifacts.add(item)
            //}
-         def git_ch = "git clone https://github.com/red-hat-storage/cephci.git"
-         def proc = git_ch.execute()
-         //proc.waitFor()
          //import groovy.io.FileType
          //File file = new File("https://github.com/manasagowri/JenkinsPipeline/blob/main/suite_defs")
          //sh 'ls'
+         def redirectFollowingDownload( String url, String filename ) {
+  while( url ) {
+    new URL( url ).openConnection().with { conn ->
+      conn.instanceFollowRedirects = false
+      url = conn.getHeaderField( "Location" )      
+      if( !url ) {
+        new File( filename ).withOutputStream { out ->
+          conn.inputStream.with { inp ->
+            out << inp
+            inp.close()
+          }
+        }
+      }
+    }
+  }
+}
+         redirectFollowingDownload("https://github.com/manasagowri/JenkinsPipeline/archive/main.zip", "main.zip")
          sleep 100
          return ['actual1', 'actual2']''']]]
    ])
