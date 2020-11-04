@@ -46,7 +46,7 @@ properties([
            //for(item in pars){
            //   artifacts.add(item)
            //}
-         def git_ch = ("git clone https://github.com/red-hat-storage/cephci.git").execute()
+         //def git_ch = ("git clone https://github.com/red-hat-storage/cephci.git").execute()
          sleep 100
          return ['actual1', 'actual2']''']]]
    ])
