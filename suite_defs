@@ -1,7 +1,6 @@
-suite_defs = [
+[
    'sanity_ceph_ansible' : ['suite_path' : 'suites/nautilus/ansible/sanity_ceph_ansible.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml'],
    'sanity_ceph_ansible_small' : ['suite_path' : 'suites/nautilus/ansible/sanity_ceph_ansible_small.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible-small.yaml'],
    'sanity_containerized_ceph_ansible' : ['suite_path' : 'suites/nautilus/ansible/sanity_containerized_ceph_ansible.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml'],
    'switch_rpm_to_container' : ['suite_path' : 'suites/nautilus/ansible/switch_rpm_to_container.yaml', 'conf_path' : 'conf/nautilus/ansible/sanity-ceph-ansible.yaml']
 ]
-
