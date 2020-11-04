@@ -51,7 +51,7 @@ properties([
          File file = new File("https://github.com/manasagowri/JenkinsPipeline/blob/main/suite_defs") 
          def text = file.text
          sleep 100
-         return ['actual1', 'actual2', text]''']]]
+         return ['actual1', 'actual2']''']]]
    ])
 ])
 
