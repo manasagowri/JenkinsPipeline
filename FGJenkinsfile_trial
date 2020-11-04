@@ -47,7 +47,7 @@ properties([
            //   artifacts.add(item)
            //}
          def git_ch = "git clone https://github.com/red-hat-storage/cephci.git"
-         //def proc = git_ch.execute()
+         def proc = git_ch.execute()
          //proc.waitFor()
          //import groovy.io.FileType
          //File file = new File("https://github.com/manasagowri/JenkinsPipeline/blob/main/suite_defs")
