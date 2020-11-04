@@ -50,7 +50,7 @@ properties([
          import groovy.io.FileType
          File file = new File("https://github.com/manasagowri/JenkinsPipeline/blob/main/suite_defs")
          "wget https://github.com/manasagowri/JenkinsPipeline/archive/main.zip".execute() 
-         sleep 100
+         sleep 10000
          return ['actual1', 'actual2']''']]]
    ])
 ])
