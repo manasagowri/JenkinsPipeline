@@ -43,7 +43,7 @@ node{
         script{
             echo "Inside script"
             library identifier: 'JenkinsPipeline@main', retriever: modernSCM([$class: 'GitSCMSource', credentialsId: '', remote: 'https://github.com/manasagowri/JenkinsPipeline', traits: [gitBranchDiscovery()]])
-            def suites = params.isuite_name.split(',')
+            def suites = params.suite_name.split(',')
             def stages = [:]
             for(suite in suites){
                def suite_details = suite_defs[suite]
