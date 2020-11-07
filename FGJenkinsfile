@@ -46,20 +46,24 @@ node{
             def suites = params.suite_name.split(',')
             def stages = [:]
             for(suite in suites){
-               def suite_details = suite_defs[suite]
+               def name = suite.toString()
+               def suite_details = suite_defs[name]
                args['suite_name'] = suite_details['suite_path']
                args['global_conf'] = suite_details['conf_path']
                cli = FetchCLI(args)
-               String stageName = "Stage " + suite
+               String stageName = "Stage " + name
                def buildStage = {
                    node{
                        stage(stageName){
                           echo 'Executing CLI ' + cli
+                          checkout([$class: 'GitSCM', branches: [[name: args['git_branch']]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], 
+                                    userRemoteConfigs: [[url: 'https://github.com/' + args['github_repo_link']]]])
+                          echo "Check out complete"
                           sh cli
                        }
                    }
                }
-               stages.put(suite, buildStage)
+               stages.put(name, buildStage)
             }
             parallel stages
             echo "Scripts done"
