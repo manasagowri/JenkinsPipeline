@@ -47,17 +47,23 @@ node{
             def stages = [:]
             for(suite in suites){
                def name = suite.toString()
+               echo 'name ' + name
                def suite_details = suite_defs[name]
                args['suite_name'] = suite_details['suite_path']
+               echo 'path ' + suite_details['suite_path']
                args['global_conf'] = suite_details['conf_path']
+               echo 'conf ' + suite_details['conf_path']
+               def git_branch = args['git_branch']
+               echo git_branch
+               def repo_link = args['github_repo_link']
                cli = FetchCLI(args)
                String stageName = "Stage " + name
                def buildStage = {
                    node{
                        stage(stageName){
                           echo 'Executing CLI ' + cli
-                          checkout([$class: 'GitSCM', branches: [[name: args['git_branch']]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], 
-                                    userRemoteConfigs: [[url: 'https://github.com/' + args['github_repo_link']]]])
+                          checkout([$class: 'GitSCM', branches: [[name: git_branch]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], 
+                                    userRemoteConfigs: [[url: 'https://github.com/' + repo_link]]])
                           echo "Check out complete"
                           sh cli
                        }
