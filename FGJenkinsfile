@@ -47,7 +47,7 @@ node{
             for(suite in suites){
                echo "in for loop"
                echo suite
-               echo suite_defs.get(suite)
+               echo suite_defs[suite]
             }
             library identifier: 'JenkinsPipeline@main', retriever: modernSCM([$class: 'GitSCMSource', credentialsId: '', remote: 'https://github.com/manasagowri/JenkinsPipeline', traits: [gitBranchDiscovery()]])
             ExecuteCephCI(args)
