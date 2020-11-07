@@ -11,5 +11,5 @@ def call(args){
        }
        echo "CLI modified"
        echo cli
-       sh cli
+       return cli
 }

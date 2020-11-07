@@ -42,19 +42,26 @@ node{
         echo myvar.toString()
         script{
             echo "Inside script"
-            //exeuteCLI(args)
-            def suites = params.suite_name.split(',')
-            for(suite in suites){
-               echo "in for loop"
-               echo suite
-               def suite_details = suite_defs[suite]
-               echo 'suite details fetched'
-               def path = suite_details['suite_path']
-               echo 'path fetched'
-               echo path
-            }
             library identifier: 'JenkinsPipeline@main', retriever: modernSCM([$class: 'GitSCMSource', credentialsId: '', remote: 'https://github.com/manasagowri/JenkinsPipeline', traits: [gitBranchDiscovery()]])
-            ExecuteCephCI(args)
+            def suites = params.isuite_name.split(',')
+            def stages = [:]
+            for(suite in suites){
+               def suite_details = suite_defs[suite]
+               args['suite_name'] = suite_details['suite_path']
+               args['global_conf'] = suite_details['conf_path']
+               cli = FetchCLI(args)
+               String stageName = "Stage " + suite
+               def buildStage = {
+                   node{
+                       stage(stageName){
+                          echo 'Executing CLI ' + cli
+                          sh cli
+                       }
+                   }
+               }
+               stages.put(suite, buildStage)
+            }
+            parallel stages
             echo "Scripts done"
         }
     }
