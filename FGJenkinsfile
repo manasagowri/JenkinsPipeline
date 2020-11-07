@@ -58,16 +58,15 @@ node{
                echo 'name ' + name
                def suite_details = suite_defs[name]
                def suite_path = suite_details['suite_path']
-               args['suite_name'] = suite_path
                echo 'path ' + suite_path
                def conf_path = suite_details['conf_path']
-               args['global_conf'] = conf_path
-               echo 'conf ' + conf_path
+               def args = ['rhbuild' : "${params.rhbuild}", 'inventory' : "conf/inventory/${params.inventory}.yaml", 'rhs_ceph_repo' : "${params.rhs_ceph_repo}" , 'container_image' : "${params.container_image}" ,
+                           'github_repo_link' : "${params.github_repo_link}" , 'git_branch' : "${params.git_branch}" , 'suite_name' : suite_path , 'global_conf' : conf_path]
+               echo 'args ' + args
                def git_branch = args['git_branch']
                echo git_branch
                def repo_link = args['github_repo_link']
-               def myargs = args
-               def cli = FetchCLI(myargs)
+               def cli = FetchCLI(args)
                String stageName = "Stage " + name
                def buildStage = {
                    node{
