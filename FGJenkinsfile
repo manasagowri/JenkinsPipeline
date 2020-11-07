@@ -51,6 +51,7 @@ node{
             else{
                suites = suite_selected.split(',')
             }
+            echo 'suites '+ suites
             def stages = [:]
             for(suite in suites){
                def name = suite.toString()
