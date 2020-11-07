@@ -64,7 +64,8 @@ node{
                def git_branch = args['git_branch']
                echo git_branch
                def repo_link = args['github_repo_link']
-               def cli = FetchCLI(args)
+               def myargs = args
+               def cli = FetchCLI(myargs)
                String stageName = "Stage " + name
                def buildStage = {
                    node{
