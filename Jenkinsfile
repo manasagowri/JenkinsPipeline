@@ -22,8 +22,6 @@ node{
       container_image = "${params.container_image}"
       github_repo_link = "${params.github_repo_link}"
       git_branch = "${params.git_branch}"
-      suite_name = "sanity_ceph_ansible"
-      global_conf = "sanity-ceph-ansible"
       downstream_job = "${params.downstream_job}"
       echo downstream_job
       echo "params fetched"
@@ -36,7 +34,7 @@ node{
          def buildJob = {
              node{
                 stage(stageName){
-                   build quietPeriod: count*10, job: jobName, parameters: [[$class: 'StringParameterValue', name: 'rhbuild', value: rhbuild], [$class: 'StringParameterValue', name: 'inventory', value: inventory], [$class: 'StringParameterValue', name: 'rhs_ceph_repo', value: rhs_ceph_repo], [$class: 'StringParameterValue', name: 'container_image', value: container_image], [$class: 'StringParameterValue', name: 'github_repo_link', value: github_repo_link], [$class: 'StringParameterValue', name: 'git_branch', value: git_branch], [$class: 'StringParameterValue', name: 'suite_name', value: suite_name], [$class: 'StringParameterValue', name: 'global_conf', value: global_conf]]
+                   build quietPeriod: count*10, job: jobName, parameters: [[$class: 'StringParameterValue', name: 'rhbuild', value: rhbuild], [$class: 'StringParameterValue', name: 'inventory', value: inventory], [$class: 'StringParameterValue', name: 'rhs_ceph_repo', value: rhs_ceph_repo], [$class: 'StringParameterValue', name: 'container_image', value: container_image], [$class: 'StringParameterValue', name: 'github_repo_link', value: github_repo_link], [$class: 'StringParameterValue', name: 'git_branch', value: git_branch], [$class: 'StringParameterValue', name: 'suite_name', value: ''], [$class: 'StringParameterValue', name: 'global_conf', value: '']]
                 }
              }
          }
