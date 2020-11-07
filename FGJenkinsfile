@@ -57,10 +57,12 @@ node{
                def name = suite.toString()
                echo 'name ' + name
                def suite_details = suite_defs[name]
-               args['suite_name'] = suite_details['suite_path']
-               echo 'path ' + suite_details['suite_path']
-               args['global_conf'] = suite_details['conf_path']
-               echo 'conf ' + suite_details['conf_path']
+               def suite_path = suite_details['suite_path']
+               args['suite_name'] = suite_path
+               echo 'path ' + suite_path
+               def conf_path = suite_details['conf_path']
+               args['global_conf'] = conf_path
+               echo 'conf ' + conf_path
                def git_branch = args['git_branch']
                echo git_branch
                def repo_link = args['github_repo_link']
