@@ -44,6 +44,7 @@ node{
             echo "Inside script"
             //exeuteCLI(args)
             def suites = params.suite_name
+            echo suites.getClass()
             for(suite in suites){
                echo "in for loop"
                echo suite
